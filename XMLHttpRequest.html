@@ -1,37 +1,36 @@
 <!DOCTYPE html>
 <html lang="pl">
-  <head>
-    <title>XMLHttpRequest</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <button id="get-joke">Random joke</button>
-    <p id="nbr"></p>
+	<head>
+		<title>XMLHttpRequest</title>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<button id="get-joke">Random joke</button>
+		<p id="nbr"></p>
 		<p id="joke"></p>
-        
+
 		<script>
-        var url = 'http://api.icndb.com/jokes/random';
-        var paragraph = document.getElementById('joke');
-				var nbr = document.getElementById('nbr');
-        var button = document.getElementById('get-joke');
-				window.addEventListener('load', function() {
+			var url = "http://api.icndb.com/jokes/random";
+			var paragraph = document.getElementById("joke");
+			var nbr = document.getElementById("nbr");
+			var button = document.getElementById("get-joke");
+			
+			document.addEventListener("DOMContentLoaded", function() {
+				getJoke();
+				button.addEventListener("click", function() {
 					getJoke();
 				});
-															 			
-				button.addEventListener('click', function(){
-  				getJoke();
+			});
+			function getJoke() {
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET", url);
+				xhr.addEventListener("load", function() {
+					var response = JSON.parse(xhr.response);
+					paragraph.innerHTML = response.value.joke;
+					nbr.innerHTML = "Joke number: " + response.value.id;
 				});
-     		function getJoke() {
-  				var xhr = new XMLHttpRequest();
-  				xhr.open('GET', url);
-  				xhr.addEventListener('load', function(){
-    				var response = JSON.parse(xhr.response);
-    				paragraph.innerHTML = response.value.joke;
-						nbr.innerHTML = "Joke number: " + response.value.id;
-  				});
-  				xhr.send();
-				}
-       	
-    </script>
-  </body>
+				xhr.send();
+			}
+		</script>
+	</body>
 </html>
