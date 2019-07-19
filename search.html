@@ -3,20 +3,43 @@
 <head>
 	<meta charset="utf-8">
 	<title>Search engine</title>
+	<style>
+		#countries {
+			display: flex;
+			flex-direction: column;
+			margin: auto;
+		}
+		.country-header {
+			display: flex;
+			flex-direction: row;
+			background-color: green;
+		}
+		.data-list div {
+			display: flex;
+			background-color: yellow;
+		}
+	</style>
 </head>
 <body>
 <h1>Country search engine</h1>
 <button id="search">Search a country</button>
 <input id="country-name" type="text" />
 <h2>List of countries</h2>
-<ul id="countries">
-  <li>No data</li>
-</ul>
+
+<div id="countries">
+  
+</div>
 
 
 <script>
 	var url = "https://restcountries.eu/rest/v1/name/";
 	var countriesList = document.getElementById("countries");
+
+	var flag = document.getElementsByClassName('flag');
+	var countryName = document.getElementsByClassName('country-name');
+	var capita = document.getElementsByClassName('data-capital');
+	var population = document.getElementsByClassName('data-population');
+	var area = document.getElementsByClassName('data-area');
 
 	document.getElementById('search').addEventListener('click', searchCountries);
 
@@ -33,9 +56,17 @@
     countriesList.innerHTML = '';
     
     	resp.forEach(function(item){
-   		var liEl = document.createElement('li');
-    	liEl.innerText = item.name;
-    	countriesList.appendChild(liEl);
+   		var html = "<div class='country-header'><div class='flag'><embed src='" + item.flag + "' type='image/svg+xml'/></div><div class='country-name'>"
+   		 + item.name + "</div></div><div class='data-list'><div><div>Capital:</div><div class='data-capital'>"
+   		 + item.capital + "</div></div><div><div>Population:</div><div class='data-population'>"
+   		 + item.population + "</div></div><div><div>Area:</div><div class='data-area'>"
+   		  + item.area + "</div></div></div>";
+  		
+  		countriesList.insertAdjacentHTML("afterbegin", html);
+   		
+   		//var liEl = document.createElement('li');
+    	//countriesList.innerText = item.name;
+    	//countriesList.appendChild(liEl);
 	  	});
 	}
 
