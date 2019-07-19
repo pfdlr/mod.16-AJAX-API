@@ -8,6 +8,7 @@
 	<style>
 		* {
 			box-sizing: border-box;
+			font-family: sans-serif;
 		}
 		body  {
 			background-color: #b9cede;
@@ -26,13 +27,18 @@
 			margin: 50px auto;
 			position: relative;
 			top: 25px;
+			border-bottom: 2px solid white;
 		}
 		
 		.box {
-			background-color: #b9cede;
-			width: 500px;
+			width: 90%;
 			height: 200px;
 			margin: auto;
+			padding-top: 30px;
+		}
+		.author {
+			text-align: right;
+			font-style: italic;
 		}
 		.buttons {
 		display: flex;
@@ -54,6 +60,9 @@
 		}
 		.trigger:hover, .tweet:hover{
 			background-color: #16649f;
+		}
+		.trigger:active, .tweet:active {
+			background-color: #8aa4b7;
 		}
 		a {
 			text-decoration: none;
@@ -115,7 +124,7 @@
                 quoteAuthor = "Unknown author";
             }
             var tweetText = "Quote of the day - " + quoteText + " Author: " + quoteAuthor;  
-					  if (tweetText.length > 14000) {
+					  if (tweetText.length > 280) {
                 getQuote();
             } else {
                 var tweet = tweetLink + encodeURIComponent(tweetText);
