@@ -29,6 +29,10 @@
                 button:active {
                         background-color: #8aa4b7;
                 }
+				.country-info {
+						border-top: 2px solid #007970;
+						border-bottom: 2px solid #55ACEE;
+				}
                 #country-name {
                         height: 38px;
                         border: 1px solid #55ACEE;
@@ -45,6 +49,10 @@
                 }
                 .division {
                         height: 10px;
+						margin: 15px 0;
+						background-image: url("images/flags.png");
+						background-position: 0 -22px;
+						animation: slide 60s linear infinite;
                 }
                 .country-header {
                         display: flex;
@@ -62,23 +70,34 @@
                 img {
                         width: 100%;
                         height: 100%;
+					    object-fit: cover;
                 }
                 .data-list {
                         background-color: #007970;
                         color: white;
+						padding: 0;
                 }
+				.data-list div:last-child {
+						border-bottom: none; 
+				}
                 .line {
                         display: flex;
                         width: 100%;
+						height: 35px;
+    					border-bottom: 1px solid #C1DCDA;
                 }
                 .first {
-                        width: 150px;
-                        height: 30px;
+                        width: 16%;
+    					height: 30px;
+    					margin-left: 45px;
                 }
                 [class^="data"],
                 .first {
-                        padding: 5px;
+                        line-height: 40px;
                 }
+				.data-area {
+						line-height: 30px;
+				}
         </style>
 </head>
 
@@ -114,11 +133,12 @@
                         countriesList.innerHTML = '';
                         resp.forEach(function (item) {
                                 var area = item.area.toLocaleString();
-                                var html = "<div class='country-header'><div class='flag'><img src='" + item.flag + "'></div><div class='country-name'>"
+								var population = item.population.toLocaleString();
+                                var html = "<div class='country-info'><div class='country-header'><div class='flag'><img src='" + item.flag + "'></div><div class='country-name'>"
                                         + item.name + "</div></div><div class='data-list'><div class='line'><div class='first'>Capital:</div><div class='data-capital'>"
                                         + item.capital + "</div></div><div class='line'><div class='first'>Population:</div><div class='data-population'>"
-                                        + item.population + "</div></div><div class='line'><div class='first'>Area:</div><div class='data-area'>"
-                                        + area + " km<sup>2</sup></div></div></div><div class='division'></div>";
+                                        + population + "</div></div><div class='line'><div class='first'>Area:</div><div class='data-area'>"
+                                        + area + " km<sup>2</sup></div></div></div></div><div class='division'></div>";
                                 countriesList.insertAdjacentHTML("afterbegin", html);
                         });
                 }
